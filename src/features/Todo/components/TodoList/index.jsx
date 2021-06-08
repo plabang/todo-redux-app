@@ -1,7 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
-import './styles.scss'
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Col, Container, Row } from "react-bootstrap";
+import './styles.scss';
 
 TodoList.propTypes = {
     todoList: PropTypes.array,
@@ -21,18 +24,25 @@ function TodoList({ todoList, onTodoClick }) {
     }
 
     return (
-        <div className="todo-list">
-            <ul>
-                {todoList.map((todo, idx) => (
-                    <li key={todo.id} className={classnames({
-                        'todo-item': true,
-                        completed: todo.status === 'completed'
-                    })}
-                        onClick={() => handleTodoClick(todo, idx)}
-                    >{todo.title}</li>
-                ))}
-            </ul>
-        </div>
+        <Container style={{ height: "12rem" }} className="d-flex flex-column-reverse overflow-auto">
+            {todoList.map((todo, idx) => (
+                <Row>
+                    <Col xs="10" className="todo-list">
+                        <li key={todo.id} className={classnames({
+                            'todo-item': true,
+                            completed: todo.status === 'completed'
+                        })}
+                            onClick={() => handleTodoClick(todo, idx)}
+                        >{todo.title}</li>
+                    </Col>
+                    <Col xs="2">
+                        {todo.status === 'completed' ? <FontAwesomeIcon icon={faCheck} size="1x" color="green" /> : <div></div>}
+                    </Col>
+                </Row>
+
+            ))}
+        </Container>
+
     );
 }
 

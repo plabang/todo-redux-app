@@ -1,8 +1,10 @@
+import { faCheck, faListUl, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { Button, Card, Container } from "react-bootstrap";
+import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import './styles.scss';
-import TodoForm from './components/TodoForm';
 
 TodoFeature.propTypes = {
 
@@ -74,18 +76,20 @@ function TodoFeature(props) {
     }
 
     return (
-        <div className="todo-feature">
-            <h3>Todos</h3>
-            <TodoList todoList={renderedTodoList} onTodoClick={handleTodoClick} />
-
-            <TodoForm onSubmit={handleTodoFormSubmit} />
-
-            <div>
-                <button onClick={handleShowAllClick}>Show All</button>
-                <button onClick={handleShowCompletedClick}>Show Completed</button>
-                <button onClick={handleShowNewClick}>Show New</button>
-            </div>
-        </div>
+        <Container className="d-flex justify-content-center mt-5">
+            <Card style={{ width: "24rem" }} bg="light">
+                <Card.Body>
+                    <h1 className="d-flex justify-content-center">Todos</h1>
+                    <div className="mt-5"><TodoList todoList={renderedTodoList} onTodoClick={handleTodoClick} /></div>
+                    <div className="mt-3"><TodoForm onSubmit={handleTodoFormSubmit} /></div>
+                    <div className="d-flex justify-content-center mt-5">
+                        <Button variant="light mr-4" onClick={handleShowAllClick}><FontAwesomeIcon icon={faListUl} size="3x" color="#15aabf" /></Button>
+                        <Button variant="light mr-4" onClick={handleShowNewClick}><FontAwesomeIcon icon={faTimes} size="3x" color="red" /></Button>
+                        <Button variant="light mr-4" onClick={handleShowCompletedClick}><FontAwesomeIcon icon={faCheck} size="3x" color="green" /></Button>
+                    </div>
+                </Card.Body>
+            </Card>
+        </Container>
     );
 }
 

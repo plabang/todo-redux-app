@@ -1,8 +1,11 @@
 .todo-list {
-    & > ul > li {
+    & > li {
         cursor: pointer;
+        list-style: none;
+        height: 3rem;
+        font-size: 1.5rem;
     }
-    & > ul > li.completed {
+    & > li.completed {
         color: #ccc;
         font-style: italic;
         text-decoration: line-through;

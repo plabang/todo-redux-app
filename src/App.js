@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 import TodoFeature from './features/Todo';
 
