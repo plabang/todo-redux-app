@@ -2,49 +2,27 @@ import { faCheck, faListUl, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Button, Card, Container } from "react-bootstrap";
+import { useDispatch, useSelector } from 'react-redux';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import './styles.scss';
+import { addTodo, toggleTodo } from './todoSlice';
 
 TodoFeature.propTypes = {
 
 };
 
 function TodoFeature(props) {
-    // const initTodoList = [
-    //     {
-    //         id: 1,
-    //         title: 'Eat',
-    //         status: 'new'
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'Sleep',
-    //         status: 'completed'
-    //     },
-    //     {
-    //         id: 3,
-    //         title: 'Code',
-    //         status: 'new'
-    //     }
-    // ]
+    const dispatch = useDispatch();
+    const todoList = useSelector(state => state.todos);
 
-    const [todoList, setTodoList] = useState([]);
+    // const [todoList, setTodoList] = useState([]);
     const [filteredStatus, setFilteredStatus] = useState('all');
 
-    const handleTodoClick = (todo, idx) => {
-        const newTodoList = [...todoList];
-
-        // console.log(todo, idx);
-
-        const newTodo = {
-            ...newTodoList[idx],
-            status: newTodoList[idx].status === 'new' ? 'completed' : 'new',
-        };
-
-        newTodoList[idx] = newTodo;
-
-        setTodoList(newTodoList);
+    const handleTodoClick = (todo) => {
+        const action = toggleTodo(todo);
+        // console.log(action);
+        dispatch(action);
     }
 
     const handleShowAllClick = () => {
@@ -63,16 +41,9 @@ function TodoFeature(props) {
     // console.log(renderedTodoList);
 
     const handleTodoFormSubmit = (values) => {
-        console.log('Form submit: ', values);
-        const newTodo = {
-            id: todoList.length + 1,
-            title: values.title,
-            status: 'new'
-        };
-
-        const newTodoList = [...todoList, newTodo];
-
-        setTodoList(newTodoList);
+        const action = addTodo(values);
+        // console.log(action);
+        dispatch(action);
     }
 
     return (
